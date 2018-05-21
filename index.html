@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MQTT Chat web aplikacija</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Lekton:400,700' rel='stylesheet' type='text/css'><!-- Styles -->
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/antglesic.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="http://www.hivemq.com/demos/websocket-client/js/mqttws31.js"></script>
+    </head>
+    <body>
+        <form id="target1">
+            <div class="menu">
+                <div id="name" class="pink">
+                    <input id="ime" class="text" type="text" placeholder="Ime">
+                    <input id="tema" class="text" type="text" placeholder="Tema">
+                    <input type="button" id="clientConnectButton" class="a" value="CONNECT" onclick="connectionToggle();"></button>
+                    <input id="pretplata" type="button" class="a" value="SUBSCRIBE" onclick="subscribe();"></button>
+                    <input type="button" id="odspajanje" class="a" value="DISCONNECT" onclick="connectionToggle();"></button>
+                </div>
+            </div>
+        </form>
+        <div id="messages"></div>
+        <div class="area">
+            <input id="ulaz" class="textarea" type="text" placeholder="Type here!"/>
+        </div>
+        <div class="slanje">
+            <input type="button" id="slanje" class="a" value="SEND" onclick="publish();"></button>
+        </div>
+        
+        <script src="js/mqttws31.js"></script>
+        <script src="js/antglesic.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </body>
+</html>
