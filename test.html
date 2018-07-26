@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>MQTT APP</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Eclipse Paho is a set of scalable open-source implementations of open and standard messaging protocols aimed at new, existing, and emerging applications for Machine-to-Machine (M2M) and Internet of Things (IoT)">
+
+        <!-- Custom Fonts -->
+        <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Lekton:400,700' rel='stylesheet' type='text/css'><!-- Styles -->
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link href="css/antglesic.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+
+    <body>
+        <div class="container main-content">
+            <div class="row">
+                <!--<div class="offset1 span10">-->
+                <div class="content" style="margin-top:30px;">
+                    <style type="text/css" scoped>
+                        .special-checkbox {
+                            display: block;
+                            width:20px;
+                            height:20px;
+                        }
+                    </style>
+
+                    <!-- Connection panel -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form>
+                                <div class="panel panel-default">
+                                    <div class="panel-body" id="serverCollapse">
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-lg-5">
+                                                    <div class="form-group">
+                                                        <label for="hostInput">Host</label>
+                                                        <input type="text" class="form-control" id="hostInput" value="broker.mqttdashboard.com">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-1">
+                                                    <div class="form-group">
+                                                        <label for="portInput">Port</label>
+                                                        <input type="text" class="form-control" id="portInput" value="8000">
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="clientIdInput">Client ID</label>
+                                                        <input type="text" class="form-control" id="clientIdInput" value="javascript-client">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-1">
+                                                    <div class="form-group">
+                                                        <label for="clientConnectButton"></label>
+                                                        <a id="clientConnectButton" class="btn btn-default" onclick="connectionToggle();">Connect</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- End of Connection panel -->
+
+                            <div class="row ">
+                                <!-- Subscription panel -->
+                                <div class="col-md-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">Subscribe</div>
+                                        <div class="panel-body" id="subscribeCollapse">
+                                            <form class="form-horizontal">
+
+                                                <div class="form-group">
+                                                    <label for="subscribeTopicInput" class="col-sm-2 control-label">Topic</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="subscribeTopicInput" value="zavrsni_rad/test" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="subscribeQosInput" class="col-sm-2 control-label">QoS</label>
+                                                    <div class="col-sm-10">
+                                                        <select class="form-control" id="subscribeQosInput" disabled>
+                                                            <option>0</option>
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-offset-2 col-sm-10">
+                                                        <button id="subscribeButton" type="button" class="btn btn-default" onclick="subscribe();" disabled>Subscribe</button>
+                                                        <button id="unsubscribeButton" type="button" class="btn btn-default" onclick="unsubscribe();" disabled>Unsubscribe</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End of Subscription panel -->
+                                
+                                <!-- Publish panel -->
+                                <div class="col-md-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Publish Message
+                                        </div>
+                                        <div class="panel-body" id="publishCollapse">
+                                            <form >
+                                                <div class="row">
+                                                    <div class="col-lg-5">
+                                                        <div class="form-group">
+                                                            <label for="publishTopicInput">Topic</label>
+                                                            <input type="text" class="form-control" id="publishTopicInput" value="zavrsni_rad/test" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <div class="form-group">
+                                                            <label for="publishQosInput">QoS</label>
+                                                            <select class="form-control" id="publishQosInput" disabled>
+                                                                <option>0</option>
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-1">
+                                                        <div class="form-group">
+                                                            <label for="publishButton"></label>
+                                                            <button id="publishButton" type="button" class="btn btn-default" onclick="publish();" disabled>Publish</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="publishMessageInput">Message</label>
+                                                            <textarea class="form-control" id="publishMessageInput" rows="3"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+                            <!-- End of Publish panel -->
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Messages
+                                        </div>
+                                        <div class="panel-body collapse in fixed-height-panel" id="historyCollapse">
+                                            <span class="right"><a href="#" onclick="clearHistory()">Clear History</a></span>
+                                            <table class="table table-hover table-condensed  tableSection" id="incomingMessageTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Topic</th>
+                                                        <th>Payload</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="messages"></div>
+                <script src="js/mqttws31.js"></script>
+                <script src="js/jsFunkcije.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                <!--</div>-->
+            </div>
+        </div>
+    </body>
+</html>

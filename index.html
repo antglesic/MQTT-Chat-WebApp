@@ -17,9 +17,9 @@
                 <div id="name" class="pink">
                     <input id="ime" class="text" type="text" placeholder="Ime">
                     <input id="tema" class="text" type="text" placeholder="Tema">
-                    <input type="button" id="clientConnectButton" class="a" value="CONNECT" onclick="connectionToggle();"></button>
-                    <input id="pretplata" type="button" class="a" value="SUBSCRIBE" onclick="subscribe();"></button>
-                    <input type="button" id="odspajanje" class="a" value="DISCONNECT" onclick="connectionToggle();"></button>
+                    <input type="button" id="clientConnectButton" class="a" value="POVEŽI" onclick="connectionToggle();"></button>
+                    <input id="pretplata" type="button" class="a" value="PRETPLATI" onclick="subscribe();"></button>
+                    <input type="button" id="odspajanje" class="a" value="ISKLJUČI" onclick="connectionToggle();"></button>
                 </div>
             </div>
         </form>
@@ -28,7 +28,7 @@
             <input id="ulaz" class="textarea" type="text" placeholder="Type here!"/>
         </div>
         <div class="slanje">
-            <input type="button" id="slanje" class="a" value="SEND" onclick="publish();"></button>
+            <input type="button" id="slanje" class="a" value="POŠALJI" onclick="publish();"></button>
         </div>
         
         <script src="js/mqttws31.js"></script>
